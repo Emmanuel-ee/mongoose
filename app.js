@@ -4,20 +4,27 @@ mongoose.connect("mongodb://localhost:27017/fruitDB", {
 });
 
 const fruitSchema = new mongoose.Schema({
-  name: String,
-  rating: Number,
+  name: {
+    type: String,
+    required: [true, "Please check your data entry, no name specified!"]
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10
+  },
   review: String,
 });
 
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
-const fruit = new Fruit({
-  name: "Apple",
-  rating: 7,
-  review: "Pretty solid as a fruit.",
-});
 
-//fruit.save();
+const fruit = new Fruit({
+    rating: 10,
+    review: "Peaches are so yummy!",
+  });
+
+fruit.save();
 
 const personSchema = new mongoose.Schema({
   name: String,
@@ -31,7 +38,7 @@ const person = new Person({
   age: 37,
 });
 
-person.save();
+// person.save();
 
 // const kiwi = new Fruit({
 //   name: "Kiwi",
